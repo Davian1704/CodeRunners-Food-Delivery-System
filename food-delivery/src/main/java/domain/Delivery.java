@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -12,7 +13,7 @@ public class Delivery {
         this.driver = driver;
         this.restaurant = restaurant;
         this.duration = duration;
-        this.totalValue = -1.0;
+        this.totalValue = 0.0;
         items = new ArrayList<>();
     }
 
@@ -28,7 +29,7 @@ public class Delivery {
 
     private final int duration;// in minutes
 
-    private final double totalValue;
+    private double totalValue;
 
     public Long getId() {
         return id;
@@ -59,14 +60,28 @@ public class Delivery {
     }
 
     public void addItem(Item item) {
-        //TODO(implementation)
+        items.add(item);
     }
 
     public void removeItem(String itemName) {
-        //TODO(implementation)
+        for(Item i : items)
+            if(i.getName().equals(itemName))
+            {
+                items.remove(itemName);
+                break;
+            }
     }
 
     public void computeTotalValue() {
-        //TODO(implementation)
+        if(items.size() == 0)
+            totalValue = 0;
+
+        else
+        {
+            for(Item i : items)
+                totalValue += i.getPrice();
+        }
+
     }
+
 }
